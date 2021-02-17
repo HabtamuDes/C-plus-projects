@@ -1,0 +1,13 @@
+TITTLE
+treh
+ACTOR NAME
+yit jgj
+COLUMN
+1,ROW2
+DATE
+2-3-2000
+FILM TYPE
+action
+QUANTITY
+2
+end

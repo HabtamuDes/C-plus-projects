@@ -1,0 +1,391 @@
+//____________________________________________________________________________//
+//		   	  \*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/                   //
+//		   	   \ This Program Developed For Lesion Hotel /                    //
+//              \          Bed Room Service             /                     //
+//		   	     \/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/                       //
+//____________________________________________________________________________//
+
+#include<iostream.h>   // To Input Output Statment
+#include<process.h>    // To Statment
+#include<conio.h>      // To GetCharacter Clear Screen Statment
+#include<iomanip.h>    // To Setw Statment
+#include<stdlib.h>     // To Exit Statment
+	  struct node
+	  {
+	  char first_name[20];
+	  char last_name[20];
+	  char sex[20];
+	  char job[20];
+	  char id[20];
+	  int level;
+	  int  age;
+	  node *next;
+	  node *prev;
+	  };
+node *first_ptr=NULL;
+node *current,*temp2;
+void add_new_node (node *temp);
+void record_list();
+void show_list();
+void creater();
+void remove();
+char id[20];
+char ch;
+////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////This Function To//////////////////////////////////
+///////////////////////Record The Custemer Information//////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+	  void record_list()
+	  {
+	  node *temp;
+	  temp=new node;
+	  clrscr();
+	  cout<<"\t\t    +-----------------------------------+";
+	  cout<<"\n\t\t    | Please Write Custemer Information |";
+	  cout<<"\n\t\t    +-----------------------------------+";
+	  cout<<"\n\nFirst Name: ";
+	  cin>>temp->first_name;
+	  cout<<"\n\nLast Name: ";
+	  cin>>temp->last_name;
+	  cout<<"\n\nCustemer ID: ";
+	  cin>>temp->id;
+	  cout<<"\n\nCustemer Age: ";
+	  cin>>temp->age;
+	  cout<<"\n\nCustemer Sex: ";
+	  cin>>temp->sex;
+	  cout<<"\n\nCustemer Job: ";
+	  cin>>temp->job;
+	  cout<<"\n\n\t\tChoose Room Quality";
+	  cout<<"\n\t\t  1-> Quality";
+	  cout<<"\n\t\t  2-> Medium";
+	  cout<<"\n\t\t  3-> Low";
+	  cout<<"\n\t\t      Enter--> ";
+	  cin>>temp->level;
+	  if(temp->level==1)
+	  {
+	  cout<<"\n\n\t\t\t|``````````````````````````````````````````|";
+	  cout<<"\n\t\t\t| Dear Custemer Our Bed Room Service Is:   |";
+	  cout<<"\n\t\t\t| Like->Wireless Internet Service          |";
+	  cout<<"\n\t\t\t|     ->Confortable Shower With Steam Bath |";
+	  cout<<"\n\t\t\t|     ->Breakfast WithOut Custemer Payment |";
+	  cout<<"\n\t\t\t'``````````````````````````````````````````'";
+	  }
+	  else if(temp->level==2)
+	  {
+	  cout<<"\n\n\t\t\t|``````````````````````````````````````````|";
+	  cout<<"\n\t\t\t| Dear Custemer Our Bed Room Service Is:   |";
+	  cout<<"\n\t\t\t| Like->Wireless Internet Service          |";
+	  cout<<"\n\t\t\t|     ->Confortable Shower                 |";
+	  cout<<"\n\t\t\t|     ->Breakfast WithOut Custemer Payment |";
+	  cout<<"\n\t\t\t'``````````````````````````````````````````'";
+	  }
+	  else
+	  {
+	  cout<<"\n\n\t\t\t|``````````````````````````````````````````|";
+	  cout<<"\n\t\t\t| Dear Custemer Our Bed Room Service Is:   |";
+	  cout<<"\n\t\t\t| Like->Wireless Internet Service          |";
+	  cout<<"\n\t\t\t|     ->Confortable Shower With Steam Bath |";
+	  cout<<"\n\t\t\t'``````````````````````````````````````````'";
+	  }
+	  temp->next=NULL;
+	  temp->prev=NULL;
+	  add_new_node(temp);
+	  cout<<"\n\n\tYou Want To Write Other Custemer Information: Press [A]--> ";
+	  cin>>ch;
+	  if(ch=='a'||ch=='A')
+	  {
+	  record_list();
+	  }
+	  }
+////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////This Function To/////////////////////////////////
+//////////////////////////////Add New Node To Data//////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+void add_new_node(node *temp)
+{
+if(first_ptr==NULL)
+{
+first_ptr=temp;
+first_ptr->next=first_ptr;
+first_ptr->prev=first_ptr;
+}
+else
+{
+current=first_ptr;
+cout<<"\n\n\t\tWhere You Want To Write This New Information:";
+cout<<"\n\t\t   ->To The Front: Press [B]";
+cout<<"\n\t\t   ->To The End: Press [N]";
+cout<<"\n\t\t   ->To Between Two Other Information: Press [M]";
+cout<<"\n\t\t        Enter--> ";
+cin>>ch;
+if(ch=='b'||ch=='B')
+{
+node *temp2=new node;
+temp2=first_ptr;
+while(temp2->next!=first_ptr)
+temp2=temp2->next;
+temp2->next=temp;
+temp->prev=temp2;
+temp->next=first_ptr;
+first_ptr->prev=temp;
+first_ptr=temp;
+}
+else if(ch=='n'||ch=='N')
+{
+while(current->next!=first_ptr)
+current=current->next;
+current->next=temp;
+temp->prev=current;
+temp->next=first_ptr;
+first_ptr->prev=temp;
+}
+else if(ch=='m'||ch=='M')
+{
+cout<<"\n\n\t\tEnter ID Of The Custemer That Information Holds:--> ";
+cin>>id;
+cout<<"\n\t\tBefore Or After!";
+cout<<"\n\t\t  ->To Before: Press [K]";
+cout<<"\n\t\t  ->To After: Press [L]";
+cout<<"\n\t\t       Enter--> ";
+cin>>ch;
+if(ch=='l'||ch=='L')
+{
+temp->next=current->next;
+current->next->prev=temp;
+temp->prev=current;
+current->next=temp;
+}
+else if(ch=='k'||ch=='K')
+{
+temp2=first_ptr;
+while(temp2->next!=current)
+temp2=temp2->next;
+temp->next=current;
+current->prev=temp;
+temp2->next=temp;
+temp->prev=temp2;
+}
+}
+else
+{
+clrscr();
+cout<<"\n\n\t\t\t#=================================#";
+cout<<"\n\t\t\t# WARNNING!! Use Wrong Character! #";
+cout<<"\n\t\t\t#      Please Try Again!          #";
+cout<<"\n\t\t\t#=================================#";
+}
+}
+}
+////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////This Function To/////////////////////////////////
+///////////////////////////Show All Custemer Information////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+	  void show_list()
+	  {
+	  current=first_ptr;
+	  if(first_ptr==NULL)
+	  {
+	  clrscr();
+	  cout<<"\n\n\t\t\t#====================#";
+	  cout<<"\n\t\t\t# The List Is Empty! #";
+	  cout<<"\n\t\t\t#====================#";
+	  getch();
+	  }
+	  else
+	  {
+	  clrscr();
+	  cout<<"\n\n\n\tYou Want To List The Whole Custemer Information: Press [Z]--> ";
+	  cin>>ch;
+	  if(ch=='z'||ch=='Z')
+	  {
+	  clrscr();
+	  cout<<"                      All Custemer Information\n";
+	  cout<<" ______________________________________________________________\n";
+	  cout<<"|   Name         |   ID   | Sex | Age |     Job   | Room Level |\n";
+	  cout<<"|________________|________|_____|_____|___________|____________|\n";
+	  while(current->next!=first_ptr)
+	  {
+	  cout<<" "<<current->first_name<<" "<<current->last_name<<"    ";
+	  cout<<current->id<<"      "<<current->sex<<"     "<<current->age<<"    ";
+	  cout<<current->job<<"         "<<current->level<<"\n";
+	  current=current->next;
+	  }
+	  cout<<" "<<current->first_name<<" "<<current->last_name<<"    ";
+	  cout<<current->id<<"      "<<current->sex<<"     "<<current->age<<"    ";
+	  cout<<current->job<<"         "<<current->level<<"\n";
+	  cout<<"\n\t\tCurrent Information Is Write At End Location!"<<"\n";
+	  }
+	  else
+	  {
+	  clrscr();
+	  cout<<"                  Now Enterd Custemer Information\n";
+	  cout<<" ______________________________________________________________\n";
+	  cout<<"|   Name         |   ID   | Sex | Age |     Job   | Room Level |\n";
+	  cout<<"|________________|________|_____|_____|___________|____________|\n";
+	  cout<<" "<<current->first_name<<" "<<current->last_name<<"    ";
+	  cout<<current->id<<"      "<<current->sex<<"     "<<current->age<<"    ";
+	  cout<<current->job<<"         "<<current->level<<"\n";
+	  }
+	  }
+	  cout<<"\n\n\n\n\tYou Want To See Other Custemer Information: Press [X]--> ";
+	  cin>>ch;
+	  if(ch=='x'||ch=='X')
+	  show_list();
+	  }
+////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////This Function To///////////////////////////
+///////////////////////////Remove Custemer Information From List////////////////
+////////////////////////////////////////////////////////////////////////////////
+void remove()
+{
+node *temp2;
+current=first_ptr;
+if(first_ptr==NULL)
+{
+clrscr();
+cout<<"\n\n\t\t\t#====================#";
+cout<<"\n\t\t\t# The List Is Empty! #";
+cout<<"\n\t\t\t#====================#";
+getch();
+}
+else if(first_ptr->next==first_ptr && first_ptr->prev==first_ptr)
+{
+delete current;
+first_ptr=NULL;
+}
+else
+{
+clrscr();
+cout<<"\n\n\t\tWhere You Want To Remove Information:";
+cout<<"\n\t\t   ->To The Front: Press [B]";
+cout<<"\n\t\t   ->To The End: Press [N]";
+cout<<"\n\t\t   ->To Between Two Other Information: Press [M]";
+cout<<"\n\t\t        Enter--> ";
+if(ch=='b'||ch=='B')
+{
+temp2=first_ptr;
+while(temp2->next!=first_ptr)
+temp2=temp2->next;
+temp2->next=first_ptr->next;
+first_ptr=current->next;
+first_ptr->prev=temp2;
+delete current;
+}
+else if(ch=='n'||ch=='N')
+{
+while(current->next!=first_ptr)
+{
+temp2=current;
+current=current->next;
+}
+temp2->next=first_ptr;
+first_ptr->prev=temp2;
+delete current;
+}
+else if(ch=='m'||'M')
+{
+clrscr();
+cout<<"\n\n\t\t   You Want To Remove From The Whole List:";
+cout<<"\n\t\tEnter ID Of The Custemer That Information Holds:--> ";
+cin>>id;
+temp2=first_ptr;
+while(temp2->next!=current)
+temp2=temp2->next;
+temp2->next=current->next;
+(current->next)->prev=temp2;
+delete current;
+}
+else
+{
+clrscr();
+cout<<"\n\n\t\t\t#=================================#";
+cout<<"\n\t\t\t# WARNNING!! Use Wrong Character! #";
+cout<<"\n\t\t\t#      Please Try Again!          #";
+cout<<"\n\t\t\t#=================================#";
+}
+}
+cout<<"\n\n\t\tYou Want To Remove Other Custemer Information: Press [A]--> ";
+cin>>ch;
+if(ch=='a'||ch=='A')
+{
+remove();
+}
+}
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////This Function///////////////////////////////
+//////////////////////////////To Display Programmer List////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+	  void creater()
+	  {
+	  clrscr();
+	  cout<<"\n\t\t              PROGRAMMER";
+	  cout<<"\n\t\t ___________________________________";
+	  cout<<"\n\t\t| No.|      Name       |   ID No.   |";
+	  cout<<"\n\t\t|____|_________________|____________|";
+	  cout<<"\n\t\t| 1. | Abebe Getnet    | RCS-009/12 |";
+	  cout<<"\n\t\t| 2. | Ymraha Ayalew   | RCS-126/12 |";
+	  cout<<"\n\t\t| 3. | Meki Legeso     | RCS-/12    |";
+	  cout<<"\n\t\t| 4. | Sualih          | RCS-/12    |";
+	  cout<<"\n\t\t| 5. | Samrawit Tadele | Rcs-/12    |";
+	  cout<<"\n\t\t| 6. | Yetmwork        | RCS-/12    |";
+	  cout<<"\n\t\t|____|_________________|____________|";
+	  getch();
+	  }
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////This Is/////////////////////////////////////////
+//////////////////////////////Main Function/////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+int main()
+{
+int option;
+cout<<"\n\n\n\n\n\t\t\tWEL COME TO LESION HOTEL";
+cout<<"\n\t\t\t    ROOM RESERVATION\n";
+getch();
+do
+{
+clrscr();
+cout<<"\n\n\n\t\t+---------------------MENU-------------------------+";
+cout<<"\n\t\t| Press:1 To Add New Custemer Information          |";
+cout<<"\n\t\t| Press:2 To Display Custemer Information          |";
+cout<<"\n\t\t| Press:3 To Remove Custemer Information From List |";
+cout<<"\n\t\t| Press:4 To Display Programmer                    |";
+cout<<"\n\t\t| Press:5 To Exit                                  |";
+cout<<"\n\t\t+--------------------------------------------------+";
+cout<<"\n\t\t             Enter--> ";
+cin>>option;
+switch(option)
+{
+case 1:
+record_list();
+break;
+case 2:
+show_list();
+break;
+case 3:
+remove();
+break;
+case 4:
+creater();
+break;
+case 5:
+clrscr();
+cout<<"\n\n";
+cout<<"\n\t\t\t\t|````````````|";
+cout<<"\n\t\t\t\t| THANK YOU! |";
+cout<<"\n\t\t\t\t'````````````'";
+exit(0);
+}
+}
+while(1);
+}
+
+
+
+
+
+
+
+
+
+
+
